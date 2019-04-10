@@ -47,14 +47,6 @@ self.__precacheManifest = [
     "revision": "f1fc05b38fd7c03081887fdc3a0d427a"
   },
   {
-    "url": "package-lock.json",
-    "revision": "f8a8485804c6a7a66c26dc7691ef8d51"
-  },
-  {
-    "url": "package.json",
-    "revision": "deebf328a725b429f4eff136376f4ed1"
-  },
-  {
     "url": "README.md",
     "revision": "861008231823ab1b455eeb67ecb719fd"
   },
@@ -64,3 +56,5 @@ self.__precacheManifest = [
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/\.(?:png|gif|jpg|jpeg|svg)$/, new workbox.strategies.CacheFirst({ "cacheName":"image-cache", plugins: [] }), 'GET');
