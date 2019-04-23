@@ -19,5 +19,8 @@
   "homepage": "https://github.com/WaximeA/4AIW3_PWA#readme",
   "devDependencies": {
     "workbox-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "idb": "^4.0.3"
   }
 }
