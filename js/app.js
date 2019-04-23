@@ -17,8 +17,10 @@ import { openDB } from '/node_modules/idb/build/esm/index.js';
       }
     });
 
-    // Put in idb
-    await database.put('articles', json, 'articles');
+    // Put articles in database in navigator if he got a connection (null connection = true)
+    if (navigator.onLine) {
+      await database.put('articles', json, 'articles');
+    }
     // Get articles
     const articles = await database.get('articles', 'articles');
 
