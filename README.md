@@ -110,7 +110,7 @@ module.exports = {
 ### Run
 
 ```
-npm run generate
+php -S 127.0.0.1:8080
 ```
 
 
@@ -125,3 +125,9 @@ Workbox sert à utiliser des librairies sans les télécharger.
 ![alt text](images/npx_workbox_wizard.png)
 - Configurer les dossier à ignorer pour la mise en cache dans le fichier `workbox-config.js`
 - run `$ npx workbox generateSW`
+
+## Idb
+
+[Doc Jack Archibald](https://github.com/jakearchibald/idb)
+
+Init : `$  npm i idb`
