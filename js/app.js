@@ -1,5 +1,6 @@
 import { default as Card, initCard } from '/js/components/card/card.js';
 import { openDB } from '/node_modules/idb/build/esm/index.js';
+import checkConnectivity from '/js/connect.js';
 
 (async function(document) {
   const app = document.querySelector('#app');
@@ -7,6 +8,11 @@ import { openDB } from '/node_modules/idb/build/esm/index.js';
   const listPage = app.querySelector('[page=list]');
   skeleton.removeAttribute('active');
   listPage.setAttribute('active', '');
+
+  checkConnectivity();
+  document.addEventListener('connectivity-changed', ({detail}) => {
+    console.log(detail)
+  });
 
   try {
     const data = await fetch('/data/spacex.json');
