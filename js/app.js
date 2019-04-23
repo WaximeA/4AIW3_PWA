@@ -1,4 +1,5 @@
 import { default as Card, initCard } from '/js/components/card/card.js';
+import { openDB } from '/node_modules/idb/build/esm/index.js';
 
 (async function(document) {
   const app = document.querySelector('#app');
@@ -10,6 +11,16 @@ import { default as Card, initCard } from '/js/components/card/card.js';
   try {
     const data = await fetch('/data/spacex.json');
     const json = await data.json();
+    const database = await openDB('app-store', 1, {
+      upgrade(db) {
+        db.createObjectStore('articles')
+      }
+    });
+
+    // Put in idb
+    await database.put('articles', json, 'articles');
+    // Get articles
+    const articles = await database.get('articles', 'articles');
 
     // Load CardElement CSS
     const cardStyle = document.createElement('link');
