@@ -36,7 +36,7 @@ import checkConnectivity from '/js/connect.js';
     cardStyle.rel = "stylesheet";
     document.head.appendChild(cardStyle);
 
-    const cards = json.map(item => {
+    const cards = articles.map(item => {
       const constructor = document.createElement('div');
       constructor.innerHTML = Card;
 
