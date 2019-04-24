@@ -1,4 +1,4 @@
-import { default as Card, initCard } from '/js/components/card/card.js';
+import AppCard from '/js/components/card/card.js';
 import { openDB } from '/node_modules/idb/build/esm/index.js';
 import checkConnectivity from '/js/connect.js';
 
@@ -29,35 +29,22 @@ import checkConnectivity from '/js/connect.js';
     }
     // Get articles
     const articles = await database.get('articles', 'articles');
-
-    // Load CardElement CSS
-    const cardStyle = document.createElement('link');
-    cardStyle.href = '/js/components/card/card.css';
-    cardStyle.rel = "stylesheet";
-    document.head.appendChild(cardStyle);
-
     const cards = articles.map(item => {
-      const constructor = document.createElement('div');
-      constructor.innerHTML = Card;
+      const cardElement = new AppCard();
 
-      const cardElement = constructor.querySelector('.card');
-
-      initCard(item.image,
+      cardElement.initCard(item.image,
         item.placeholder,
         item.content.title,
         item.content.description,
-        cardElement);
+      );
+
       listPage.appendChild(cardElement);
 
+      if (!'IntersectionObserver' in window) {
+        cardElement.swapImage();
+      }
+
       return cardElement;
-      // setTimeout(() => {
-      //   const img = cardElement.querySelector('img');
-      //   img.src = img.dataset.src;
-      //   img.onload = () => {
-      //     // Add the `fade` class to the placeholder
-      //     img.parentNode.querySelector('.placeholder').classList.add('fade');
-      //   }
-      // }, 3000);
     });
 
     /**
@@ -71,12 +58,8 @@ import checkConnectivity from '/js/connect.js';
         // If image element in view
         if (entry.isIntersecting) {
           // Actualy load image
-          const image = entry.target
-          image.src = image.dataset.src;
-          image.onload = () => {
-            // Add the `fade` class to the placeholder
-            image.parentNode.querySelector('.placeholder').classList.add('fade');
-          }
+          const card = entry.target;
+          card.swapImage();
         }
       });
     };
@@ -84,8 +67,7 @@ import checkConnectivity from '/js/connect.js';
     const io = new IntersectionObserver(callback, options);
     // Observe images as they enter the viewport
     cards.forEach((card) => {
-      const image = card.querySelector('img');
-      io.observe(image);
+      io.observe(card);
     });
   } catch(error){
     console.error(error);
