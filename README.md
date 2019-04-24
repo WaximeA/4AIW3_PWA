@@ -131,3 +131,12 @@ Workbox sert à utiliser des librairies sans les télécharger.
 [Doc Jack Archibald](https://github.com/jakearchibald/idb)
 
 Init : `$  npm i idb`
+
+## Polymer cli
+
+init : `$ npm i -D polymer-cli`
+lancer un server : `$ npx polymer serve`
+
+## Lit element
+
+init : `$ npm i lit-elemen`
